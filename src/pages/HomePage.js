@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import MovieList from "../components/movie/MovieList";
 import ChangePageTitle from "../components/title/ChangePageTitle";
 

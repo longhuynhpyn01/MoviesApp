@@ -18,6 +18,10 @@ import Button from "../components/button/Button";
 import PageNotFounded from "../components/404/PageNotFounded";
 import ChangePageTitle from "../components/title/ChangePageTitle";
 
+import FemaleImage from "../assets/images/female.svg";
+import MaleImage from "../assets/images/male.svg";
+import NotFoundImage from "../assets/images/imageNotFound.svg";
+
 // https://api.themoviedb.org/3/movie/{movie_id}?api_key=1a3ad44c7b5be7265bf8ab1662cea0b8
 const MovieDetailsPage = () => {
   // lấy ra movieId đang xem chi tiết
@@ -182,7 +186,7 @@ const MovieDetailsPage = () => {
                   ? tmdbAPI.imageOriginal(poster_path)
                   : backdrop_path
                   ? tmdbAPI.imageOriginal(backdrop_path)
-                  : "/imageNotFound.svg"
+                  : NotFoundImage
               }
               alt=""
               className={`w-full h-full rounded-xl ${
@@ -256,7 +260,7 @@ function MovieDetail({ data }) {
       <div className="py-10 flex flex-col gap-8">
         <div className="grid grid-cols-2 gap-8 bg-slate-800 rounded-xl">
           <div className="p-8 movie-info-left">
-            <div className="flex items-center text-lg leading-relaxed opacity-90 mb-5">
+            <div className="movie-info-meta flex items-center text-lg leading-relaxed opacity-90 mb-5">
               {release_date && (
                 <span className="opacity-90" title="Release year">
                   {new Date(release_date)
@@ -284,10 +288,10 @@ function MovieDetail({ data }) {
                 : "We don't have an overview translated in English. Help us expand our database by adding one."}
             </p>
             <MovieMeta type="keywords"></MovieMeta>
-            <div className="mt-10 text-lg">
+            {/* <div className="mt-10 text-lg">
               <Button className="mr-10">Trailer</Button>
               <Button>Share</Button>
-            </div>
+            </div> */}
           </div>
           <div className="movie-info-right flex flex-col p-8 justify-center">
             <MovieDirector movieId={id}></MovieDirector>
@@ -493,7 +497,7 @@ function MovieMeta({ type = "videos", title = "" }) {
 
     return (
       <div className="py-10">
-        <h2 className="text-3xl font-medium mb-10">Cast</h2>
+        <h2 className="text-3xl font-medium mb-10">Casts</h2>
         <div className="movie-list">
           <Swiper
             spaceBetween={40}
@@ -510,8 +514,8 @@ function MovieMeta({ type = "videos", title = "" }) {
                       item.profile_path
                         ? tmdbAPI.imageOriginal(item.profile_path)
                         : item.gender === 1
-                        ? "/female.svg"
-                        : "/male.svg"
+                        ? FemaleImage
+                        : MaleImage
                     }
                     className={`w-full h-[350px] object-cover rounded-lg mb-3 cursor-pointer ${
                       item.profile_path ? "" : "bg-[#dbdbdb]"
@@ -565,7 +569,7 @@ function MovieMeta({ type = "videos", title = "" }) {
                         src={
                           item.file_path
                             ? tmdbAPI.imageOriginal(item.file_path)
-                            : "/imageNotFound.svg"
+                            : NotFoundImage
                         }
                         className={`w-full h-full object-cover rounded-lg ${
                           item.file_path ? "" : "bg-[#dbdbdb]"
@@ -597,7 +601,7 @@ function MovieMeta({ type = "videos", title = "" }) {
                         src={
                           item.file_path
                             ? tmdbAPI.imageOriginal(item.file_path)
-                            : "/imageNotFound.svg"
+                            : NotFoundImage
                         }
                         className={`w-full h-full object-cover rounded-lg ${
                           item.file_path ? "" : "bg-[#dbdbdb]"
@@ -798,7 +802,7 @@ function MovieMeta({ type = "videos", title = "" }) {
                   <img
                     src={
                       item.author_details.avatar_path === null
-                        ? "/imageNotFound.svg"
+                        ? NotFoundImage
                         : item.author_details.avatar_path.includes(
                             "https://www.gravatar.com/avatar"
                           )
@@ -895,99 +899,6 @@ function MovieMeta({ type = "videos", title = "" }) {
   }
 
   return null;
-}
-
-// hàm xử lí hiển thị thông tin diễn viên
-function MovieCredits() {
-  const { movieId } = useParams();
-  const { data } = useSWR(tmdbAPI.getMovieMeta(movieId, "credits"), fetcher);
-
-  if (!data) return null;
-  const { cast } = data;
-
-  if (!cast || cast.length <= 0) return null;
-
-  return (
-    <div className="py-10">
-      <h2 className="text-center text-3xl mb-10">Casts</h2>
-      <div className="grid grid-cols-4 gap-5">
-        {cast.slice(0, 4).map((item) => (
-          <div className="cast-item" key={item.id}>
-            <img
-              src={tmdbAPI.imageOriginal(item.profile_path)}
-              alt=""
-              className="w-full h-[350px] object-cover rounded-lg mb-3"
-            />
-            <h3 className="text-xl font-medium">{item.name}</h3>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// hàm xử lí hiển thị thông tin video trailer
-function MovieVideos() {
-  const { movieId } = useParams();
-  const { data } = useSWR(tmdbAPI.getMovieMeta(movieId, "videos"), fetcher);
-
-  if (!data) return null;
-  const { results } = data;
-
-  if (!results && results.length <= 0) return null;
-
-  return (
-    <div className="py-10">
-      <div className="flex flex-col gap-10">
-        {results.slice(0, 2).map((item) => (
-          <div key={item.id} className="">
-            <h3 className="mb-5 text-xl font-medium p-3 bg-secondary inline-block rounded-lg">
-              {item.name}
-            </h3>
-            <div key={item.id} className="w-full aspect-video">
-              <iframe
-                width="900"
-                height="506"
-                src={`https://www.youtube.com/embed/${item.key}`}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full object-fill"
-              ></iframe>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// hàm hiển thị các bộ phim tương đồng
-function MovieSimilar() {
-  const { movieId } = useParams();
-  const { data } = useSWR(tmdbAPI.getMovieMeta(movieId, "similar"), fetcher);
-
-  if (!data) return null;
-  const { results } = data;
-
-  if (!results && results.length <= 0) return null;
-
-  return (
-    <div className="py-10">
-      <h2 className="text-3xl font-medium mb-10">Similar movies</h2>
-      <div className="movie-list">
-        <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
-          {results.length > 0 &&
-            results.map((item) => (
-              <SwiperSlide key={item.id}>
-                <MovieCard item={item}></MovieCard>
-              </SwiperSlide>
-            ))}
-        </Swiper>
-      </div>
-    </div>
-  );
 }
 
 export default MovieDetailsPage;

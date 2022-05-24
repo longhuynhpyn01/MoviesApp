@@ -5,6 +5,7 @@ import Button from "../button/Button";
 import PropTypes from "prop-types";
 import { withErrorBoundary } from "react-error-boundary";
 import LoadingSkeleton from "../loading/LoadingSkeleton";
+import NotFoundImage from "../../assets/images/imageNotFound.svg";
 
 const MovieCard = ({ item }) => {
   // console.log("item:", item);
@@ -18,7 +19,7 @@ const MovieCard = ({ item }) => {
     hover:scale-105 transition-all"
     >
       <img
-        src={poster_path ? tmdbAPI.image500(poster_path) : "imageNotFound.svg"}
+        src={poster_path ? tmdbAPI.image500(poster_path) : NotFoundImage}
         alt=""
         className={`w-full h-[250px] object-cover rounded-lg mb-5 ${
           poster_path ? "" : "bg-[#dbdbdb]"

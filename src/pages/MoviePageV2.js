@@ -13,9 +13,6 @@ import ChangePageTitle from "../components/title/ChangePageTitle";
 const itemsPerPage = 20; // số lượng phim ở 1 phân trang là 20
 
 const MoviePageV2 = () => {
-  const [pageCount, setPageCount] = useState(0); // tổng số trang - chính là totalPages
-  const [itemOffset, setItemOffset] = useState(0); // lưu vị trí xuất hiện bộ phim của trang. Ví dụ tại trang 4 thì bắt đầu từ vị trí 60
-
   const [nextPage, setNextPage] = useState(1);
   const [filter, setFilter] = useState("");
   const [url, setUrl] = useState(tmdbAPI.getMovieList("popular", nextPage));
@@ -45,32 +42,11 @@ const MoviePageV2 = () => {
   const isReachingEnd =
     isEmpty || (data && data[data.length - 1]?.results.length < itemsPerPage);
 
-  //console.log("movies: ", movies);
-  // console.log("MoviePage ~ isReachingEnd", isReachingEnd);
-
-  // =================================================================================
-
   useEffect(() => {
     if (filterDebounce)
       setUrl(tmdbAPI.getMovieSearch(filterDebounce, nextPage));
     else setUrl(tmdbAPI.getMovieList("popular", nextPage));
   }, [filterDebounce, nextPage]);
-
-  // ========= khu vực xử lí phân trang ========
-
-  useEffect(() => {
-    if (!data || !data.total_results) return null;
-
-    setPageCount(Math.ceil(data.total_results / itemsPerPage));
-  }, [data, itemOffset]);
-
-  const handlePageClick = (event) => {
-    // hiển thị dấu 3 chấm
-    const newOffset = (event.selected * itemsPerPage) % data.total_pages;
-    setItemOffset(newOffset);
-    // xét trang mới dựa event.selected là chỉ số của trang hiện tại (bắt đầu từ 0)
-    setNextPage(event.selected + 1);
-  };
 
   return (
     <>

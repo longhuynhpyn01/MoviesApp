@@ -11,6 +11,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 import { v4 } from "uuid";
+import FemaleImage from "../assets/images/female.svg";
+import MaleImage from "../assets/images/male.svg";
+import NotFoundImage from "../assets/images/imageNotFound.svg";
 
 const CastDetailsPage = () => {
   const { castId } = useParams();
@@ -45,8 +48,8 @@ const CastDetailsPage = () => {
               profile_path
                 ? tmdbAPI.imageOriginal(profile_path)
                 : gender === 1
-                ? "/female.svg"
-                : "/male.svg"
+                ? FemaleImage
+                : MaleImage
             }
             className={`w-[350px] h-[350px] object-cover rounded-full flex-shrink-0 ${
               profile_path ? "" : "bg-[#dbdbdb]"
@@ -256,7 +259,7 @@ function CastMeta({ type = "movie_credits", meta = "movies" }) {
                       src={
                         item.poster_path
                           ? tmdbAPI.imageOriginal(item.poster_path)
-                          : "/imageNotFound.svg"
+                          : NotFoundImage
                       }
                       className={`w-full h-[350px] object-cover rounded-lg mb-3 cursor-pointer ${
                         item.poster_path ? "" : "bg-[#dbdbdb]"
@@ -444,7 +447,7 @@ function CastMeta({ type = "movie_credits", meta = "movies" }) {
                     src={
                       item.file_path
                         ? tmdbAPI.imageOriginal(item.file_path)
-                        : "/imageNotFound.svg"
+                        : NotFoundImage
                     }
                     className={`w-full h-full object-cover rounded-lg ${
                       item.file_path ? "" : "bg-[#dbdbdb]"
@@ -480,7 +483,7 @@ function Filmography({ filmography }) {
         </div>
         {!show && (
           <span className="department-state flex-shrink-0 flex items-center opacity-80">
-            Show{" "}
+            Show
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 ml-2"
@@ -499,7 +502,7 @@ function Filmography({ filmography }) {
         )}
         {show && (
           <span className="department-state flex-shrink-0 flex items-center opacity-80">
-            Hide{""}
+            Hide
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 ml-2"
