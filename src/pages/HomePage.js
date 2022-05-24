@@ -1,5 +1,6 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import MovieList from "../components/movie/MovieList";
+import ChangePageTitle from "../components/title/ChangePageTitle";
 
 const HomePage = () => {
   return (
@@ -24,6 +25,8 @@ const HomePage = () => {
         </h2>
         <MovieList type="popular"></MovieList>
       </section>
+
+      <ChangePageTitle pageTitle={"The Simple Movies App"}></ChangePageTitle>
     </Fragment>
   );
 };

@@ -9,7 +9,10 @@ module.exports = {
         primary: "#F62682",
         secondary: "#6F5CF1",
       },
+      aspectRatio: {
+        "2/3": "2 / 3",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 };

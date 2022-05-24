@@ -56,3 +56,27 @@
 
 - https://swr.vercel.app/docs/pagination
 - https://swr.vercel.app/examples/infinite-loading
+
+12. Muốn giới hạn số dòng hiển thị @tailwindcss/line-clamp
+
+- https://tailwindcss.com/blog/multi-line-truncation-with-tailwindcss-line-clamp
+- Multi-line truncation with @tailwindcss/line-clamp
+- npm install @tailwindcss/line-clamp
+
+- Trong file 'tailwind.config.js' thì cập nhật:
+  module.exports = {
+  // ...
+  plugins: [
+  // ...
+  require('@tailwindcss/line-clamp'),
+  ],
+  }
+
+- line-clamp-{n} với n là số dòng muốn hiển thị
+<p class="line-clamp-3">
+</p>
+
+13. Thư viện để show more, show less
+
+- https://www.npmjs.com/package/react-show-more-text
+- npm i react-show-more-text

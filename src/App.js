@@ -15,6 +15,8 @@ const HomePage = lazy(() => import("./pages/HomePage"));
 const MoviePage = lazy(() => import("./pages/MoviePage"));
 const MoviePageV2 = lazy(() => import("./pages/MoviePageV2"));
 const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
+const CastDetailsPage = lazy(() => import("./pages/CastDetailsPage"));
+const PageNotFounded = lazy(() => import("./components/404/PageNotFounded"));
 
 function App() {
   return (
@@ -37,6 +39,11 @@ function App() {
               path="/movie/:movieId"
               element={<MovieDetailsPage></MovieDetailsPage>}
             ></Route>
+            <Route
+              path="/cast/:castId"
+              element={<CastDetailsPage></CastDetailsPage>}
+            ></Route>
+            <Route path="*" element={<PageNotFounded></PageNotFounded>}></Route>
           </Route>
         </Routes>
       </Suspense>

@@ -3,7 +3,7 @@ import React from "react";
 const LoadingSkeleton = (props) => {
   return (
     <div
-      className={`skeleton ${props.className}`}
+      className={`skeleton ${props.className || ""}`}
       style={{
         height: props.height,
         width: props.width || "100%",

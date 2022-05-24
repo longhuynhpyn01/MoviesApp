@@ -13,16 +13,87 @@
     max-width: 1280px;
     @apply mx-auto;
   }
+
   // css cho 1 thẻ div có lớp như dưới được tự động tạo ra để bao thẻ MovieCard bên trong
   .movie-list .swiper-slide {
     width: 300px;
     // để cho các MovieCard có height bằng nhau trong flexbox
     height: auto;
   }
+
+  .backdrop-list .swiper-slide,
+  .video-list .swiper-slide {
+    width: 500px;
+    // để cho các MovieCard có height bằng nhau trong flexbox
+    height: auto;
+  }
+
+  .poster-list .swiper-slide {
+    width: 300px;
+    // để cho các MovieCard có height bằng nhau trong flexbox
+    height: auto;
+  }
+
   // để giải quyế trường hợp swiper bên trong banner có chiều cao vượt quá phần tử cha
   .banner .swiper {
     // để nó có height bằng với chiều cao section banner chứa nó
     height: 100%;
+  }
+
+  .backdrop-list .swiper-wrapper,
+  .poster-list .swiper-wrapper,
+  .video-list .swiper-wrapper,
+  .movie-list .swiper-wrapper {
+    padding-top: 20px;
+    padding-bottom: 30px;
+  }
+  .backdrop-list .swiper-scrollbar-drag,
+  .poster-list .swiper-scrollbar-drag,
+  .video-list .swiper-scrollbar-drag,
+  .movie-list .swiper-scrollbar-drag {
+    background-color: #eee;
+  }
+  .backdrop-list .swiper-pagination-bullet,
+  .video-list .swiper-pagination-bullet,
+  .poster-list .swiper-pagination-bullet,
+  .movie-list .swiper-pagination-bullet {
+    background-color: #eee;
+  }
+
+  .backdrop-list .swiper-button-prev,
+  .backdrop-list .swiper-button-next,
+  .poster-list .swiper-button-prev,
+  .poster-list .swiper-button-next,
+  .video-list .swiper-button-prev,
+  .video-list .swiper-button-next,
+  .banner .swiper-button-prev,
+  .banner .swiper-button-next,
+  .movie-list .swiper-button-prev,
+  .movie-list .swiper-button-next {
+    width: 52px !important;
+    height: 52px !important;
+  }
+
+  .backdrop-list .swiper-button-prev::after,
+  .backdrop-list .swiper-button-next::after,
+  .poster-list .swiper-button-prev::after,
+  .poster-list .swiper-button-next::after,
+  .video-list .swiper-button-prev::after,
+  .video-list .swiper-button-next::after,
+  .banner .swiper-button-prev::after,
+  .banner .swiper-button-next::after,
+  .movie-list .swiper-button-prev::after,
+  .movie-list .swiper-button-next::after {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eee;
+    border-radius: 100rem;
+    font-size: 24px !important;
+    font-weight: 600;
+    color: #111;
   }
 }
 
@@ -35,6 +106,61 @@
   .selected {
     @apply text-primary;
   }
+}
+
+.review-list .review-item {
+  word-break: break-word;
+}
+
+.clamp {
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+}
+
+.content-css {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
+.my-anchor-css-class {
+  opacity: 0.7;
+}
+
+.movie-info-certification::before,
+.movie-info-runtime::before {
+  display: inline-block;
+  margin: 0 0.5rem 0.2rem;
+  content: "";
+  font-size: 1rem;
+  line-height: 0.5rem;
+  padding: 1px;
+  border-radius: 50%;
+  vertical-align: middle;
+  background-color: currentColor;
+}
+
+.department-credit::before,
+.department-character::before {
+  display: inline-block;
+  margin: 0 0.5rem 0.2rem;
+  content: "";
+  font-size: 1rem;
+  line-height: 0.5rem;
+  padding: 2px;
+  border-radius: 50%;
+  vertical-align: middle;
+  background-color: currentColor;
+}
+
+.hideCredit {
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
 }
 
 // CSS dành cho skeleton

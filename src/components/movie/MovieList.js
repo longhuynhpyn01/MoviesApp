@@ -5,6 +5,12 @@ import useSWR from "swr";
 import { fetcher, tmdbAPI } from "../../config";
 import PropTypes from "prop-types";
 import { withErrorBoundary } from "react-error-boundary";
+import { Navigation, Scrollbar } from "swiper";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/scrollbar";
 
 // https://api.themoviedb.org/3/movie/now_playing?api_key=1a3ad44c7b5be7265bf8ab1662cea0b8
 
@@ -48,7 +54,14 @@ const MovieList = ({ type = "now_playing" }) => {
         spaceBetween là khoảng cách giữa chúng tương đương 40px
         */}
       {!isLoading && (
-        <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
+        <Swiper
+          // grabCursor={"true"}
+          spaceBetween={40}
+          slidesPerView={"auto"}
+          modules={[Navigation, Scrollbar]}
+          navigation
+          scrollbar={{ draggable: true }}
+        >
           {movies.length > 0 &&
             movies.map((item) => (
               <SwiperSlide key={item.id}>

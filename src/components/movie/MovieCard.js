@@ -13,26 +13,29 @@ const MovieCard = ({ item }) => {
 
   return (
     // h-full kế thừa từ .swiper
-    <div className="movie-card flex flex-col rounded-lg p-3 bg-slate-800 text-white h-full select-none">
+    <div
+      className="movie-card flex flex-col rounded-lg p-3 bg-slate-800 text-white h-full select-none 
+    hover:scale-105 transition-all"
+    >
       <img
-        src={`${tmdbAPI.image500(poster_path)}`}
+        src={poster_path ? tmdbAPI.image500(poster_path) : "imageNotFound.svg"}
         alt=""
-        className="w-full h-[250px] object-cover rounded-lg mb-5"
+        className={`w-full h-[250px] object-cover rounded-lg mb-5 ${
+          poster_path ? "" : "bg-[#dbdbdb]"
+        }`}
       />
 
       <div className="flex flex-col flex-1">
         <h3 className="text-xl font-bold mb-3">{title}</h3>
 
         <div className="flex items-center justify-between text-sm opacity-50 mb-10">
-          <span>{new Date(release_date).getFullYear()}</span>
+          <span>
+            {release_date ? new Date(release_date).getFullYear() : ""}
+          </span>
           <span>{vote_average}</span>
         </div>
 
-        <Button
-          bgColor="secondary"
-          onClick={() => navigate(`/movie/${id}`)}
-          full
-        >
+        <Button bgColor="primary" onClick={() => navigate(`/movie/${id}`)} full>
           Watch now
         </Button>
       </div>

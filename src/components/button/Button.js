@@ -7,10 +7,9 @@ const Button = ({
   type = "button",
   bgColor = "primary",
   children,
+  bgClassName = "bg-primary",
   ...props
 }) => {
-  let bgClassName = "bg-primary";
-
   switch (bgColor) {
     case "primary":
       bgClassName = "bg-primary";

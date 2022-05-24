@@ -107,6 +107,12 @@ const MoviePage = () => {
           ))}
       </div>
 
+      {!loading && movies.length <= 0 && (
+        <div className="text-center text-lg font-medium">
+          There are no movies that matched your query.
+        </div>
+      )}
+
       {/* phần để phân trang */}
       <div className="mt-10">
         <ReactPaginate
@@ -120,59 +126,6 @@ const MoviePage = () => {
           className="pagination"
         />
       </div>
-
-      {/* <div className="flex items-center justify-center mt-10 gap-x-5 hidden">
-        <span
-          className="cursor-pointer"
-          onClick={() => setNextPage(nextPage - 1)}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </span>
-
-        {new Array(pageCount).fill(0).map((item, index) => (
-          <span
-            className="cursor-pointer inline-block py-2 px-4 rounded leading-none bg-white
-        text-slate-900"
-            key={index}
-            onClick={() => setNextPage(index + 1)}
-          >
-            {index + 1}
-          </span>
-        ))}
-
-        <span
-          className="cursor-pointer"
-          onClick={() => setNextPage(nextPage + 1)}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </span>
-      </div> */}
     </div>
   );
 };
