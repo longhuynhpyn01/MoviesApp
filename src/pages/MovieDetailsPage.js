@@ -463,11 +463,30 @@ function MovieCategory({ type = "collection", belongs_to_collection }) {
         <h2 className="text-3xl font-medium mb-10">{name}</h2>
         <div className="movie-list">
           <Swiper
-            spaceBetween={40}
-            slidesPerView={"auto"}
+            slidesPerView={1}
             modules={[Navigation, Pagination, Scrollbar]}
             navigation
             scrollbar={{ draggable: true }}
+            breakpoints={{
+              // when window width is >= 768px
+              768: {
+                width: 768,
+                spaceBetween: 40,
+                slidesPerView: 2,
+              },
+              // when window width is >= 1024px
+              1024: {
+                width: 1024,
+                spaceBetween: 60,
+                slidesPerView: 3,
+              },
+              // when window width is >= 1280px
+              1280: {
+                width: 1280,
+                spaceBetween: 60,
+                slidesPerView: "auto",
+              },
+            }}
           >
             {parts.length > 0 &&
               parts.map((item) => (
