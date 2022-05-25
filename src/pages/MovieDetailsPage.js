@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SwiperSlide, Swiper } from "swiper/react";
 import useSWR from "swr";
@@ -14,7 +14,6 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import LoadingSkeleton from "../components/loading/LoadingSkeleton";
 import { v4 } from "uuid";
-import Button from "../components/button/Button";
 import PageNotFounded from "../components/404/PageNotFounded";
 import ChangePageTitle from "../components/title/ChangePageTitle";
 

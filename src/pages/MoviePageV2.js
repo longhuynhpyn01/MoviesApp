@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from "react";
-import useSWR from "swr";
+import React, { Fragment, useEffect, useState } from "react";
 import MovieCard, { MovieCardSkeleton } from "../components/movie/MovieCard";
 import { fetcher, tmdbAPI } from "../config";
 import useDebounce from "../hooks/useDebounce";
-import ReactPaginate from "react-paginate";
 import { v4 } from "uuid";
 import useSWRInfinite from "swr/infinite";
 import Button from "../components/button/Button";
 import ChangePageTitle from "../components/title/ChangePageTitle";
 
-// const pageCount = 5;
 const itemsPerPage = 20; // số lượng phim ở 1 phân trang là 20
 
+// Load more
 const MoviePageV2 = () => {
-  const [nextPage, setNextPage] = useState(1);
+  const [nextPage] = useState(1);
   const [filter, setFilter] = useState("");
   const [url, setUrl] = useState(tmdbAPI.getMovieList("popular", nextPage));
   const filterDebounce = useDebounce(filter, 500);
@@ -49,7 +47,7 @@ const MoviePageV2 = () => {
   }, [filterDebounce, nextPage]);
 
   return (
-    <>
+    <Fragment>
       <div className="page-container py-10">
         <div className="flex mb-10">
           <div className="flex-1">
@@ -115,7 +113,7 @@ const MoviePageV2 = () => {
       <ChangePageTitle
         pageTitle={"Movies — The Simple Movies App"}
       ></ChangePageTitle>
-    </>
+    </Fragment>
   );
 };
 

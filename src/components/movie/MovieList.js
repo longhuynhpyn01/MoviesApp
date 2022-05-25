@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import { SwiperSlide, Swiper } from "swiper/react";
 import MovieCard, { MovieCardSkeleton } from "./MovieCard";
 import useSWR from "swr";
@@ -6,13 +6,9 @@ import { fetcher, tmdbAPI } from "../../config";
 import PropTypes from "prop-types";
 import { withErrorBoundary } from "react-error-boundary";
 import { Navigation, Scrollbar } from "swiper";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
-
-// https://api.themoviedb.org/3/movie/now_playing?api_key=1a3ad44c7b5be7265bf8ab1662cea0b8
 
 const MovieList = ({ type = "now_playing" }) => {
   // const [movies, setMovies] = useState([]);
@@ -29,8 +25,22 @@ const MovieList = ({ type = "now_playing" }) => {
   return (
     <div className="movie-list">
       {isLoading && (
-        <>
-          <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
+        <Fragment>
+          <Swiper
+            grabCursor={"true"}
+            // spaceBetween={0}
+            slidesPerView={1}
+            //slidesPerView={"auto"}
+            spaceBetween={80}
+            breakpoints={{
+              // when window width is >= 768px
+              800: {
+                width: 800,
+                slidesPerView: "auto",
+                spaceBetween: 40,
+              },
+            }}
+          >
             <SwiperSlide>
               <MovieCardSkeleton></MovieCardSkeleton>
             </SwiperSlide>
@@ -47,7 +57,7 @@ const MovieList = ({ type = "now_playing" }) => {
               <MovieCardSkeleton></MovieCardSkeleton>
             </SwiperSlide>
           </Swiper>
-        </>
+        </Fragment>
       )}
 
       {/* grabCursor = true để có thể kéo được 
@@ -55,12 +65,30 @@ const MovieList = ({ type = "now_playing" }) => {
         */}
       {!isLoading && (
         <Swiper
-          // grabCursor={"true"}
-          spaceBetween={40}
-          slidesPerView={"auto"}
+          slidesPerView={1}
           modules={[Navigation, Scrollbar]}
           navigation
           scrollbar={{ draggable: true }}
+          breakpoints={{
+            // when window width is >= 768px
+            768: {
+              width: 768,
+              spaceBetween: 60,
+              slidesPerView: 2,
+            },
+            // when window width is >= 1024px
+            1024: {
+              width: 1024,
+              spaceBetween: 80,
+              slidesPerView: 3,
+            },
+            // when window width is >= 1280px
+            1280: {
+              width: 1280,
+              spaceBetween: 100,
+              slidesPerView: "auto",
+            },
+          }}
         >
           {movies.length > 0 &&
             movies.map((item) => (

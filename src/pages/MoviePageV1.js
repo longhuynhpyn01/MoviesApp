@@ -9,7 +9,8 @@ import { v4 } from "uuid";
 // const pageCount = 5;
 const itemsPerPage = 20; // số lượng phim ở 1 phân trang là 20
 
-const MoviePage = () => {
+// phân trang
+const MoviePageV1 = () => {
   const [pageCount, setPageCount] = useState(0); // tổng số trang - chính là totalPages
   const [itemOffset, setItemOffset] = useState(0); // lưu vị trí xuất hiện bộ phim của trang. Ví dụ tại trang 4 thì bắt đầu từ vị trí 60
 
@@ -130,4 +131,4 @@ const MoviePage = () => {
   );
 };
 
-export default MoviePage;
+export default MoviePageV1;

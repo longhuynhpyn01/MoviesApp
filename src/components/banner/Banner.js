@@ -1,50 +1,24 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { SwiperSlide, Swiper } from "swiper/react";
 import useSWR from "swr";
 import { fetcher, tmdbAPI } from "../../config";
 import Button from "../button/Button";
 import { Navigation, EffectFade, Autoplay } from "swiper";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
-import LoadingSkeleton from "../loading/LoadingSkeleton";
 
 const Banner = () => {
   const { data, error } = useSWR(tmdbAPI.getMovieList("upcoming"), fetcher);
   const isLoading = !data && !error;
   const movies = data?.results || [];
-  // console.log("movies: ", movies);
 
   return (
-    <>
-      {/* {isLoading && (
-        <section className="banner page-container h-[500px] mb-20">
-          <div className="relative w-full h-full rounded-lg">
-            <div className="absolute left-5 bottom-5 w-full">
-              <h2 className="font-bold text-3xl mb-3">
-                <LoadingSkeleton width="400px" height="40px"></LoadingSkeleton>
-              </h2>
-
-              <div className="flex items-center gap-x-3 mb-8">
-                <LoadingSkeleton width="400px" height="40px"></LoadingSkeleton>
-              </div>
-
-              <LoadingSkeleton
-                width="140px"
-                height="45px"
-                radius="6px"
-              ></LoadingSkeleton>
-            </div>
-          </div>
-        </section>
-      )} */}
-
+    <Fragment>
       {!isLoading && (
         // thêm overflow-hidden để ẩn đi phần thừa khi sử dụng swiper
-        <section className="banner h-[500px] page-container mb-20 overflow-hidden">
+        <section className="banner h-[400px] md:h-[500px] page-container mb-12 md:mb-20 overflow-hidden">
           {/* không cần thêm thuộc tính spaceBetween khoảng cách giữa 2 slide vì mỗi lần chỉ hiện thị 1 slide */}
           <Swiper
             //grabCursor={"true"}
@@ -66,7 +40,7 @@ const Banner = () => {
           </Swiper>
         </section>
       )}
-    </>
+    </Fragment>
   );
 };
 
@@ -88,10 +62,12 @@ function BannerItem({ item }) {
         // object-top để thấy mặt nhân vật
       />
 
-      <div className="absolute left-5 bottom-5 w-full text-white">
-        <h2 className="font-bold text-3xl mb-3">{title}</h2>
+      <div className="absolute left-5 bottom-5 w-full text-white pr-5">
+        <h2 className="font-bold text-2xl md:text-3xl mt-2 mb-2 md:mt-0 md:mb-8">
+          {title}
+        </h2>
 
-        <div className="flex items-center gap-x-3 mb-8">
+        <div className="invisible opacity-0 flex items-center gap-x-3 md:mb-8 md:visible md:opacity-100">
           <MovieGenre genre_ids={genre_ids}></MovieGenre>
         </div>
 
@@ -103,7 +79,6 @@ function BannerItem({ item }) {
   );
 }
 
-// https://api.themoviedb.org/3/genre/movie/list?api_key=1a3ad44c7b5be7265bf8ab1662cea0b8
 function MovieGenre({ genre_ids }) {
   const { data } = useSWR(tmdbAPI.getMovieGenre(), fetcher);
   const genres = data?.genres || [];
@@ -118,10 +93,8 @@ function MovieGenre({ genre_ids }) {
     });
   });
 
-  // console.log("genre_names: ", genre_names);
-
   return (
-    <>
+    <Fragment>
       {genre_names.length > 0 &&
         genre_names.map((item, index) => (
           <span
@@ -131,7 +104,7 @@ function MovieGenre({ genre_ids }) {
             {item}
           </span>
         ))}
-    </>
+    </Fragment>
   );
 }
 export default Banner;

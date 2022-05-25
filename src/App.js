@@ -12,7 +12,7 @@ import Banner from "./components/banner/Banner";
 
 // sử dụng khai báo lazy
 const HomePage = lazy(() => import("./pages/HomePage"));
-const MoviePage = lazy(() => import("./pages/MoviePage"));
+// const MoviePageV1 = lazy(() => import("./pages/MoviePageV1"));
 const MoviePageV2 = lazy(() => import("./pages/MoviePageV2"));
 const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
 const CastDetailsPage = lazy(() => import("./pages/CastDetailsPage"));
