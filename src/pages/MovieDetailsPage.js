@@ -705,6 +705,7 @@ function MovieMeta({ type = "videos", title = "" }) {
             viewBox="0 0 24 24"
             stroke="currentColor"
             strokeWidth="2"
+            title="Keywords"
           >
             <path
               strokeLinecap="round"

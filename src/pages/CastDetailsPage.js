@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
 import PageNotFounded from "../components/404/PageNotFounded";
@@ -40,9 +40,9 @@ const CastDetailsPage = () => {
   } = data;
 
   return (
-    <>
+    <Fragment>
       <div className="page-container py-10">
-        <div className="flex gap-8 mb-10">
+        <div className="flex gap-8 mb-0 md:mb-10 flex-col md:flex-row">
           <img
             src={
               profile_path
@@ -51,13 +51,13 @@ const CastDetailsPage = () => {
                 ? FemaleImage
                 : MaleImage
             }
-            className={`w-[350px] h-[350px] object-cover rounded-full flex-shrink-0 ${
+            className={`w-[350px] h-[350px] object-cover rounded-full mx-auto md:mx-0 flex-shrink-0 ${
               profile_path ? "" : "bg-[#dbdbdb]"
             }`}
             alt=""
           />
-          <div className="lg:mx-8 mb-5">
-            <h1 className="text-3xl lg:text-5xl font-bold text-white mb-5 lg:mb-10">
+          <div className="mt-4 mb-0 md:mx-8 md:mb-5">
+            <h1 className="text-center text-5xl font-bold text-white mb-8 md:mb-10">
               {name}
             </h1>
             <h2 className="text-2xl font-bold mb-4">Biography</h2>
@@ -143,7 +143,7 @@ const CastDetailsPage = () => {
           pageTitle={`${name} — The Simple Movies App`}
         ></ChangePageTitle>
       </div>
-    </>
+    </Fragment>
   );
 };
 
@@ -246,11 +246,30 @@ function CastMeta({ type = "movie_credits", meta = "movies" }) {
           <h2 className="text-3xl font-medium mb-10">Known For</h2>
           <div className="movie-list">
             <Swiper
-              spaceBetween={40}
-              slidesPerView={"auto"}
+              slidesPerView={1}
               modules={[Navigation, Scrollbar]}
               navigation
               scrollbar={{ draggable: true }}
+              breakpoints={{
+                // when window width is >= 768px
+                640: {
+                  width: 640,
+                  spaceBetween: 40,
+                  slidesPerView: 2,
+                },
+                // when window width is >= 1024px
+                1024: {
+                  width: 1024,
+                  spaceBetween: 60,
+                  slidesPerView: 3,
+                },
+                // when window width is >= 1280px
+                1280: {
+                  width: 1280,
+                  spaceBetween: 60,
+                  slidesPerView: "auto",
+                },
+              }}
             >
               {cast.map((item, index) => (
                 <SwiperSlide key={index}>
@@ -434,15 +453,34 @@ function CastMeta({ type = "movie_credits", meta = "movies" }) {
         <h2 className="text-3xl font-medium mb-10">Photos</h2>
         <div className="poster-list">
           <Swiper
-            spaceBetween={40}
-            slidesPerView={"auto"}
+            slidesPerView={1}
             modules={[Navigation, Scrollbar]}
             navigation
             scrollbar={{ draggable: true }}
+            breakpoints={{
+              // when window width is >= 768px
+              768: {
+                width: 768,
+                spaceBetween: 40,
+                slidesPerView: 2,
+              },
+              // when window width is >= 1024px
+              1024: {
+                width: 1024,
+                spaceBetween: 60,
+                slidesPerView: 3,
+              },
+              // when window width is >= 1280px
+              1280: {
+                width: 1280,
+                spaceBetween: 60,
+                slidesPerView: "auto",
+              },
+            }}
           >
             {profiles.map((item, index) => (
               <SwiperSlide key={index}>
-                <div className="poster-item w-full aspect-[2/3]">
+                <div className="poster-item w-full aspect-[3/4]">
                   <img
                     src={
                       item.file_path
