@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SwiperSlide, Swiper } from "swiper/react";
 import useSWR from "swr";
@@ -178,7 +178,7 @@ const MovieDetailsPage = () => {
             ></div>
           </div>
 
-          <div className="relative w-full h-[300px] pb-5 lg:h-[400px] lg:max-w-[800px] lg:-mt-[200px] lg:pb-10 mx-auto z-10">
+          <div className="relative w-full h-[300px] pb-5 md:h-[400px] lg:h-[400px] lg:max-w-[800px] lg:-mt-[200px] lg:pb-10 mx-auto z-10">
             <img
               src={
                 poster_path
@@ -194,7 +194,7 @@ const MovieDetailsPage = () => {
             />
           </div>
 
-          <h1 className="text-center text-3xl lg:text-5xl font-bold text-white mb-5 lg:mb-10">
+          <h1 className="text-center text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-5 lg:mb-10">
             {title}
             {/* {release_date && (
               <span className="opacity-70">
@@ -255,11 +255,11 @@ function MovieDetail({ data }) {
   if (!data) return null;
 
   return (
-    <>
-      <div className="py-10 flex flex-col gap-8">
-        <div className="grid grid-cols-2 gap-8 bg-slate-800 rounded-xl">
-          <div className="p-8 movie-info-left">
-            <div className="movie-info-meta flex items-center text-lg leading-relaxed opacity-90 mb-5">
+    <Fragment>
+      <div className="py-10 pb-0 lg:p-10 flex flex-col gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-8 rounded-xl">
+          <div className="p-8 py-0 lg:py-8 movie-info-left">
+            <div className="movie-info-meta flex items-center text-lg leading-relaxed opacity-90 mb-5 justify-center lg:justify-start">
               {release_date && (
                 <span className="opacity-90" title="Release year">
                   {new Date(release_date)
@@ -277,11 +277,11 @@ function MovieDetail({ data }) {
                 </span>
               )}
             </div>
-            <p className="text-lg leading-relaxed max-w-[600px] mx-auto opacity-70 italic mb-5">
+            <p className="text-lg leading-relaxed text-center lg:text-left lg:max-w-[600px] mx-auto opacity-70 italic mb-5">
               {tagline}
             </p>
             <h2 className="text-2xl font-bold mb-4">Overview</h2>
-            <p className="text-lg max-w-[600px] mx-auto mb-5">
+            <p className="text-lg lg:max-w-[600px] mx-auto mb-5">
               {overview
                 ? overview
                 : "We don't have an overview translated in English. Help us expand our database by adding one."}
@@ -292,7 +292,7 @@ function MovieDetail({ data }) {
               <Button>Share</Button>
             </div> */}
           </div>
-          <div className="movie-info-right flex flex-col p-8 justify-center">
+          <div className="movie-info-right flex flex-col p-8 pt-0 lg:pt-8 justify-center">
             <MovieDirector movieId={id}></MovieDirector>
             {production_companies.length > 0 && (
               <div>
@@ -398,7 +398,7 @@ function MovieDetail({ data }) {
           </div>
         </div>
       </div>
-    </>
+    </Fragment>
   );
 }
 
@@ -499,11 +499,30 @@ function MovieMeta({ type = "videos", title = "" }) {
         <h2 className="text-3xl font-medium mb-10">Casts</h2>
         <div className="movie-list">
           <Swiper
-            spaceBetween={40}
-            slidesPerView={"auto"}
-            modules={[Navigation, Scrollbar]}
+            slidesPerView={1}
+            modules={[Navigation, Pagination, Scrollbar]}
             navigation
             scrollbar={{ draggable: true }}
+            breakpoints={{
+              // when window width is >= 768px
+              768: {
+                width: 768,
+                spaceBetween: 40,
+                slidesPerView: 2,
+              },
+              // when window width is >= 1024px
+              1024: {
+                width: 1024,
+                spaceBetween: 60,
+                slidesPerView: 3,
+              },
+              // when window width is >= 1280px
+              1280: {
+                width: 1280,
+                spaceBetween: 60,
+                slidesPerView: "auto",
+              },
+            }}
           >
             {cast.map((item) => (
               <SwiperSlide key={item.cast_id}>
@@ -549,17 +568,24 @@ function MovieMeta({ type = "videos", title = "" }) {
     )
       return null;
     return (
-      <>
+      <Fragment>
         {backdrops.length > 0 && (
           <div className="py-10">
             <h2 className="text-3xl font-medium mb-10">Backdrops</h2>
             <div className="backdrop-list">
               <Swiper
-                spaceBetween={40}
-                slidesPerView={"auto"}
-                modules={[Navigation, Scrollbar]}
+                slidesPerView={1}
+                modules={[Navigation, Pagination, Scrollbar]}
                 navigation
                 scrollbar={{ draggable: true }}
+                breakpoints={{
+                  // when window width is >= 640px
+                  640: {
+                    width: 640,
+                    spaceBetween: 40,
+                    slidesPerView: "auto",
+                  },
+                }}
               >
                 {backdrops.map((item, index) => (
                   <SwiperSlide key={index}>
@@ -587,15 +613,41 @@ function MovieMeta({ type = "videos", title = "" }) {
             <h2 className="text-3xl font-medium mb-10">Posters</h2>
             <div className="poster-list">
               <Swiper
-                spaceBetween={40}
-                slidesPerView={"auto"}
-                modules={[Navigation, Scrollbar]}
+                slidesPerView={1}
+                modules={[Navigation, Pagination, Scrollbar]}
                 navigation
                 scrollbar={{ draggable: true }}
+                breakpoints={{
+                  // when window width is >= 460px
+                  460: {
+                    width: 460,
+                    slidesPerView: "auto",
+                    spaceBetween: 40,
+                  },
+                  // when window width is >= 640px
+                  640: {
+                    width: 640,
+                    spaceBetween: 40,
+                    slidesPerView: 2,
+                    centeredSlides: false,
+                  },
+                  // when window width is >= 1024px
+                  1024: {
+                    width: 1024,
+                    spaceBetween: 60,
+                    slidesPerView: 3,
+                  },
+                  // when window width is >= 1280px
+                  1280: {
+                    width: 1280,
+                    spaceBetween: 60,
+                    slidesPerView: "auto",
+                  },
+                }}
               >
                 {posters.map((item, index) => (
                   <SwiperSlide key={index}>
-                    <div className="poster-item w-full aspect-[2/3]">
+                    <div className="poster-item w-full aspect-[3/4]">
                       <img
                         src={
                           item.file_path
@@ -614,7 +666,7 @@ function MovieMeta({ type = "videos", title = "" }) {
             </div>
           </div>
         )}
-      </>
+      </Fragment>
     );
   } else if (type === "keywords") {
     if (data?.success === false) {
@@ -625,17 +677,35 @@ function MovieMeta({ type = "videos", title = "" }) {
     if (!keywords || keywords.length <= 0) return null;
 
     return (
-      <div className="text-lg flex items-center gap-3 flex-wrap mb-5">
-        {keywords.slice(0, 5).map((item) => (
-          <span
-            className="px-4 py-2 border border-white rounded-md hover:bg-slate-600"
-            title="Keyword"
-            key={item.id}
+      <Fragment>
+        <div className="hashtag mb-3 hidden lg:block">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
           >
-            {item.name}
-          </span>
-        ))}
-      </div>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+            />
+          </svg>
+        </div>
+        <div className="text-lg lg:flex items-center gap-3 flex-wrap mb-5 hidden">
+          {keywords.slice(0, 5).map((item) => (
+            <span
+              className="px-4 py-2 border border-white rounded-md hover:bg-slate-600"
+              title="Keyword"
+              key={item.id}
+            >
+              {item.name}
+            </span>
+          ))}
+        </div>
+      </Fragment>
     );
   } else {
     const { results } = data;
@@ -647,11 +717,18 @@ function MovieMeta({ type = "videos", title = "" }) {
           {results.length > 0 && (
             <div className="video-list">
               <Swiper
-                spaceBetween={40}
-                slidesPerView={"auto"}
-                modules={[Navigation, Scrollbar]}
+                slidesPerView={1}
+                modules={[Navigation, Pagination, Scrollbar]}
                 navigation
                 scrollbar={{ draggable: true }}
+                breakpoints={{
+                  // when window width is >= 640px
+                  640: {
+                    width: 640,
+                    spaceBetween: 40,
+                    slidesPerView: "auto",
+                  },
+                }}
               >
                 {results.map((item) => (
                   <SwiperSlide key={item.id}>
@@ -690,11 +767,30 @@ function MovieMeta({ type = "videos", title = "" }) {
           {results.length > 0 && (
             <div className="movie-list">
               <Swiper
-                spaceBetween={40}
-                slidesPerView={"auto"}
+                slidesPerView={1}
                 modules={[Navigation, Pagination, Scrollbar]}
                 navigation
                 scrollbar={{ draggable: true }}
+                breakpoints={{
+                  // when window width is >= 768px
+                  768: {
+                    width: 768,
+                    spaceBetween: 40,
+                    slidesPerView: 2,
+                  },
+                  // when window width is >= 1024px
+                  1024: {
+                    width: 1024,
+                    spaceBetween: 60,
+                    slidesPerView: 3,
+                  },
+                  // when window width is >= 1280px
+                  1280: {
+                    width: 1280,
+                    spaceBetween: 60,
+                    slidesPerView: "auto",
+                  },
+                }}
               >
                 {results.length > 0 &&
                   results.map((item) => (
@@ -720,11 +816,32 @@ function MovieMeta({ type = "videos", title = "" }) {
           {results.length > 0 && (
             <div className="movie-list">
               <Swiper
-                spaceBetween={40}
-                slidesPerView={"auto"}
+                slidesPerView={1}
                 modules={[Navigation, Pagination, Scrollbar]}
                 navigation
                 scrollbar={{ draggable: true }}
+                // centeredSlides={true}
+                // centeredSlidesBounds={true}
+                breakpoints={{
+                  // when window width is >= 768px
+                  768: {
+                    width: 768,
+                    spaceBetween: 40,
+                    slidesPerView: 2,
+                  },
+                  // when window width is >= 1024px
+                  1024: {
+                    width: 1024,
+                    spaceBetween: 60,
+                    slidesPerView: 3,
+                  },
+                  // when window width is >= 1280px
+                  1280: {
+                    width: 1280,
+                    spaceBetween: 60,
+                    slidesPerView: "auto",
+                  },
+                }}
               >
                 {results.length > 0 &&
                   results.map((item) => (
@@ -777,14 +894,14 @@ function MovieMeta({ type = "videos", title = "" }) {
       }
 
       return (
-        <>
+        <Fragment>
           <span
             className="movie-info-certification text-white opacity-90"
             title={`Motion Picture Rating (MPAA) in ${countryCert}`}
           >
             {cert}
           </span>
-        </>
+        </Fragment>
       );
     }
     if (type === "reviews") {

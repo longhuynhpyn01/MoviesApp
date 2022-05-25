@@ -73,19 +73,19 @@ const MovieList = ({ type = "now_playing" }) => {
             // when window width is >= 768px
             768: {
               width: 768,
-              spaceBetween: 60,
+              spaceBetween: 40,
               slidesPerView: 2,
             },
             // when window width is >= 1024px
             1024: {
               width: 1024,
-              spaceBetween: 80,
+              spaceBetween: 60,
               slidesPerView: 3,
             },
             // when window width is >= 1280px
             1280: {
               width: 1280,
-              spaceBetween: 100,
+              spaceBetween: 60,
               slidesPerView: "auto",
             },
           }}
