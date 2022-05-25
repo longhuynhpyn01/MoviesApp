@@ -27,17 +27,28 @@ const MovieList = ({ type = "now_playing" }) => {
       {isLoading && (
         <Fragment>
           <Swiper
-            grabCursor={"true"}
-            // spaceBetween={0}
             slidesPerView={1}
-            //slidesPerView={"auto"}
-            spaceBetween={80}
+            modules={[Navigation, Scrollbar]}
+            navigation
+            scrollbar={{ draggable: true }}
             breakpoints={{
               // when window width is >= 768px
-              800: {
-                width: 800,
-                slidesPerView: "auto",
+              768: {
+                width: 768,
                 spaceBetween: 40,
+                slidesPerView: 2,
+              },
+              // when window width is >= 1024px
+              1024: {
+                width: 1024,
+                spaceBetween: 60,
+                slidesPerView: 3,
+              },
+              // when window width is >= 1280px
+              1280: {
+                width: 1280,
+                spaceBetween: 60,
+                slidesPerView: "auto",
               },
             }}
           >
