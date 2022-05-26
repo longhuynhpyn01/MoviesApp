@@ -56,11 +56,11 @@ const CastDetailsPage = () => {
             }`}
             alt=""
           />
-          <div className="mt-4 mb-0 md:mx-8 md:mb-5">
-            <h1 className="text-center text-5xl font-bold text-white mb-8 md:mb-10">
+          <div className="mt-8 mb-0 md:mx-8 md:mb-5">
+            <h1 className="text-center text-5xl font-bold text-white mb-10">
               {name}
             </h1>
-            <h2 className="text-2xl font-bold mb-4">Biography</h2>
+            <h2 className="text-3xl font-medium mb-10 md:mb-4">Biography</h2>
             <ShowMoreText
               /* Default options */
               lines={8}
